@@ -61,17 +61,13 @@
 	}
 </script>
 
-<h1>Write Emails In My Writing Style</h1>
+<h1>content creator</h1>
 <form on:submit|preventDefault={() => handleSubmit()}>
 	<div style="display: flex; align-items: center; margin-bottom: 10px;">
-		<label for="recipientName" style="margin-right: 10px;">Recipient Name</label>
-		<textarea name="recipientName" rows="1" style="flex: 1;" bind:value={recipientName}></textarea>
+		<label for="requirement" style="margin-right: 10px;">Recipient Name</label>
+		<textarea name="recipientName" rows="3" style="flex: 1;" bind:value={recipientName}></textarea>
 	</div>
 
-	<div style="display: flex; align-items: center; margin-bottom: 20px;">
-		<label for="yourName" style="margin-right: 10px;">Your Name</label>
-		<textarea name="yourName" rows="1" style="flex: 1;" bind:value={yourName}></textarea>
-	</div>
 	  
 	<label for="emailContext" style="margin-right: 10px;">What is the email about?</label>
 	<textarea name="emailContext" rows="2" style="flex: 1;" bind:value={emailContext}></textarea>
