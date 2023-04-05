@@ -1,4 +1,4 @@
-import { OPENAI_KEY } from '$env'
+import { OPENAI_KEY } from '$env/static/private'
 import { oneLine, stripIndent } from 'common-tags'
 import type { RequestHandler } from './$types'
 import type { CreateCompletionRequest } from 'openai'
