@@ -33,7 +33,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		const prompt = stripIndent`
         ${oneLine`
-		You love to help me write emails. Based on my writing style, tone and the information I provide, you will craft an email for me. Cut out any pre-text and just give me the email. 
+		You love to help me write article. Based on my writing style, tone and the information I provide, you will craft an article for me. the article should have enough contents, at least 5 paragraphs. 
         `}
 
         Context:"""${context.trim()}"""
@@ -44,7 +44,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		const completionOpts: CreateCompletionRequest = {
 			model: 'text-davinci-003',
 			prompt,
-			max_tokens: 1024,
+			max_tokens: 3500,
 			temperature: 0.7,
 			stream: true
 		}
