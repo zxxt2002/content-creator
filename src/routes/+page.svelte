@@ -3,9 +3,7 @@
 	import { SSE } from 'sse.js'
 
 	let context = ''
-	let recipientName = ''
-	let yourName = ''
-	let emailContext = ''
+	let requirement = ''
 	let writingExample = ''
 
 	let loading = false
@@ -17,7 +15,7 @@
 		error = false
 		answer = ''
 		context = ''
-		context = "Write an email to " + recipientName + ", from " + yourName + " and " + emailContext + 
+		context = "Write an anticle about: " + requirement + 
 		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
 		+ writingExample;
 
@@ -63,14 +61,10 @@
 
 <h1>content creator</h1>
 <form on:submit|preventDefault={() => handleSubmit()}>
-	<div style="display: flex; align-items: center; margin-bottom: 10px;">
-		<label for="requirement" style="margin-right: 10px;">Recipient Name</label>
-		<textarea name="recipientName" rows="3" style="flex: 1;" bind:value={recipientName}></textarea>
-	</div>
 
 	  
-	<label for="emailContext" style="margin-right: 10px;">What is the email about?</label>
-	<textarea name="emailContext" rows="2" style="flex: 1;" bind:value={emailContext}></textarea>
+	<label for="requirement" style="margin-right: 10px;">What is the article about?</label>
+	<textarea name="requirement" rows="2" style="flex: 1;" bind:value={requirement}></textarea>
 	
 	<label for="writingExample" style="margin-right: 10px;">Provide sample emails below so your writing style and tone can be replicated.</label>
 	<!--
