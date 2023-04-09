@@ -66,7 +66,7 @@
 	<label for="requirement" style="margin-right: 10px;">What is the article about?</label>
 	<textarea name="requirement" rows="2" style="flex: 1;" bind:value={requirement}></textarea>
 	
-	<label for="writingExample" style="margin-right: 10px;">Provide sample emails below so your writing style and tone can be replicated.</label>
+	<label for="writingExample" style="margin-right: 10px;">Provide sample articles below so your writing style and tone can be replicated.</label>
 	<!--
 	<div style="display: flex; flex-direction: row; align-items: center;">
 		-->
