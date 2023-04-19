@@ -9,6 +9,7 @@
 	let loading = false
 	let error = false
 	let answer = ''
+	let copyDisabled = true;
 
 	const handleSubmit = async () => {
 		loading = true
@@ -39,6 +40,7 @@
 				loading = false
 
 				if (e.data === '[DONE]') {
+					copyDisabled = false;
 					return
 				}
 
@@ -99,7 +101,7 @@
 		{/if}
 		
 		{#if answer}
-		  <button on:click={() => copyToClipboard(answer)}>Copy</button>
+		  <button on:click={() => copyToClipboard(answer)} disabled={copyDisabled}>Copy</button>
 		{/if}
 		
 		<script>
