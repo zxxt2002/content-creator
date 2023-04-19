@@ -96,7 +96,10 @@
 		{#if answer}
 			<textarea rows="20" bind:value={answer} style="width: 100%;"></textarea>
 			<p>{answer}</p>
-			<button on:click={() => copyToClipboard(answer)}>Copy</button>
+		{/if}
+		
+		{#if answer}
+		  <button on:click={() => copyToClipboard(answer)}>Copy</button>
 		{/if}
 		
 		<script>
