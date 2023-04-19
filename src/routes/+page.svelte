@@ -59,6 +59,15 @@
 
 		eventSource.stream()
 	}
+	const copyToClipboard = () => {
+		const elem = document.createElement('textarea')
+		elem.value = answer
+		document.body.appendChild(elem)
+		elem.select()
+		document.execCommand('copy')
+		document.body.removeChild(elem)
+		alert('Copied to clipboard!')
+ 	}
 </script>
 
 <h1>content creator</h1>
@@ -101,7 +110,7 @@
 		{/if}
 		
 		{#if answer}
-		  <button on:click={() => copyToClipboard(answer)} disabled={copyDisabled}>Copy</button>
+		  <button on:click={() => copyToClipboard()} disabled={copyDisabled}>Copy</button>
 		{/if}
 		
 		<script>
