@@ -18,7 +18,7 @@
 		context = ''
 		context = "Write an anticle as long as you can about: " + requirement + 
 		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
-		+ writingExample;
+		+ writingExample + "requirment of length of this article: longer the better";
 
 		const eventSource = new SSE('/api/explain', {
 			headers: {
