@@ -16,7 +16,7 @@
 		error = false
 		answer = ''
 		context = ''
-		context = "Write an anticle as long as you can about: " + requirement + 
+		context = "Write longest anticle about: " + requirement + 
 		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
 		+ writingExample + "requirment of length of this article: longer the better";
 
