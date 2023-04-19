@@ -16,9 +16,9 @@
 		error = false
 		answer = ''
 		context = ''
-		context = "Write an anticle about: " + requirement + 
+		context = "Write an anticle as long as you can about: " + requirement + 
 		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
-		+ writingExample + ". the article should has at least 1000 words and 5 paragraphies";
+		+ writingExample;
 
 		const eventSource = new SSE('/api/explain', {
 			headers: {
