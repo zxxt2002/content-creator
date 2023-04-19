@@ -95,6 +95,7 @@
 		<h2>Generated Article:</h2>
 		{#if answer}
 			<textarea rows="20" bind:value={answer} style="width: 100%;"></textarea>
+			<p>{answer}</p>
 		{/if}
 	</div>
 
