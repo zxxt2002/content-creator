@@ -96,7 +96,20 @@
 		{#if answer}
 			<textarea rows="20" bind:value={answer} style="width: 100%;"></textarea>
 			<p>{answer}</p>
+			<button on:click={() => copyToClipboard(answer)}>Copy</button>
 		{/if}
+		
+		<script>
+		    const copyToClipboard = (text: string) => {
+		      const elem = document.createElement('textarea')
+		      elem.value = text
+		      document.body.appendChild(elem)
+		      elem.select()
+		      document.execCommand('copy')
+		      document.body.removeChild(elem)
+		      alert('Copied to clipboard!')
+		    }
+  		</script>
 	</div>
 
 </form>
