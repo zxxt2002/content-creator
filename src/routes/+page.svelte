@@ -110,7 +110,7 @@
 		{/if}
 		
 		{#if answer}
-		  <button on:click={() => copyToClipboard()} disabled={copyDisabled}>Copy</button>
+		  <button on:click|preventDefault={() => copyToClipboard()} disabled={copyDisabled}>Copy</button>
 		{/if}
 		
 		<script>
