@@ -11,15 +11,14 @@ body {
 }
 
 header {
-	@apply bg-blue-600 text-white p-4 flex justify-between items-center;
-}
+	@apply bg-white text-purple-600 p-4 flex justify-between items-center;
 
 header h1 {
 	@apply text-2xl font-semibold;
 }
 
 .main-content {
-	@apply flex flex-col items-center py-20 bg-gradient-to-r from-blue-100 to-blue-300;
+	@apply flex flex-col items-center py-20 bg-white;
 }
 
 button {
@@ -31,7 +30,7 @@ label {
 }
 
 textarea {
-	@apply rounded-md p-3 text-zinc-900;
+	@apply rounded-md p-3 text-zinc-900 border border-gray-300;
 }
 
 h1 {
