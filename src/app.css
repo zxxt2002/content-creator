@@ -3,52 +3,38 @@
 @tailwind utilities;
 
 html, body {
-	@apply h-full;
+    height: 100%; /* Use height property instead of @apply for h-full */
 }
 
 body {
-	@apply bg-white text-zinc-900;
+    background-color: white; /* Use background-color instead of @apply */
+    color: #333; /* Use a suitable color for text */
 }
 
 header {
-	@apply bg-white text-purple-600 p-4 flex justify-between items-center;
+    background-color: white; /* Use background-color instead of @apply */
+    color: purple; /* Use a purple color for text */
+    padding: 1rem; /* Adjust padding as needed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 header h1 {
-	@apply text-2xl font-semibold;
+    font-size: 1.5rem; /* Use font-size instead of @apply for text-2xl */
+    font-weight: 600; /* Use font-weight instead of @apply for font-semibold */
 }
 
 .main-content {
-	@apply flex flex-col items-center py-20 bg-white;
-}
-
-button {
-	@apply px-5 py-3 font-medium text-lg bg-blue-700 text-white rounded-md mt-4 hover:bg-blue-800 transition-all duration-200 ease-in-out;
-}
-
-label {
-	@apply pb-2 text-lg;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem 0; /* Adjust padding as needed */
+    background-color: white; /* Set background-color to white */
 }
 
 textarea {
-	@apply rounded-md p-3 text-zinc-900 border border-gray-300;
-}
-
-h1 {
-	@apply text-5xl font-semibold mb-6;
-}
-
-h2 {
-	@apply text-3xl font-medium pb-1;
-}
-
-p {
-	@apply text-lg;
-}
-
-form {
-	@apply flex flex-col pt-8 max-w-lg w-full;
-}
-
-footer {
-	@apply bg-blue-600 text-white p-4 mt-6;
+    border: 1px solid #ccc; /* Add a light grey border */
+    border-radius: 0.25rem; /* Add border radius */
+    padding: 0.75rem; /* Adjust padding as needed */
 }
