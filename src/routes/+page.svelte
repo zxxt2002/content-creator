@@ -70,6 +70,26 @@
  	}
 </script>
 
+<style>
+    /* Add this style to your component */
+    header h1 {
+        background: linear-gradient(to right, blue, purple);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: white; /* To ensure text/content beneath doesn't show through */
+        z-index: 10; /* Keep the header above all other content */
+    }
+    .main-content {
+        margin-top: 60px; /* Adjust as per your header's height */
+    }
+</style>
+
 <header>
 	<h1>Touch Point Digital Marketing Agency</h1>
 	<nav>
