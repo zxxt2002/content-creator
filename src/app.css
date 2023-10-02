@@ -15,7 +15,7 @@ header {
 }
 
 header a {
-    color: inherit; /* Ensures the link inherits the color from the parent, so it stays consistent */
+    color: linear-gradient(to right, blue, purple); /* Ensures the link inherits the color from the parent, so it stays consistent */
     text-decoration: none; /* Removes the underline that typically appears on links */
     display: block; /* Makes the entire area of the header a clickable link */
 }
@@ -24,8 +24,14 @@ header a span {
     display: block; /* Ensures each span takes up a full line */
 }
 
+.title {
+    @apply text-3xl font-semibold; /* Larger size for Touch Point */
+    padding: 0 0.5rem; /* Small padding to make it center relative to the subtitle */
+}
+
 .subtitle {
     @apply text-lg font-normal text-gray-400; /* Adjust this for the size and color of "Digital Marketing Agency" */
+    text-align: center;
 }
 
 header h1 {
