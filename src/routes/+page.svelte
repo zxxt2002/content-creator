@@ -1,93 +1,153 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Content Creator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+<h1>Content Creator</h1>
+<form on:submit|preventDefault={handleSubmit}>
 
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
+    <label for="requirement">What is the article about?</label>
+    <textarea id="requirement" name="requirement" rows="2" bind:value={requirement}></textarea>
+    
+    <label for="writingExample">Provide sample articles below so your writing style and tone can be replicated.</label>
+    <textarea id="writingExample" name="writingExample" rows="5" bind:value={writingExample}></textarea>
 
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    <button id="load-button" type="button">Load Erick's Style</button>
+    <button type="submit">Write Article</button>
 
-        label {
-            font-weight: bold;
-        }
+    <div class="pt-4">
+        <h2>Generated Article:</h2>
+        {#if answer}
+        <div>{@html answer}</div>
+        {/if}
 
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+        {#if answer}
+        <button on:click|preventDefault={copyToClipboard} disabled={copyDisabled}>Copy</button>
+        {/if}
+    </div>
 
-        button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+</form>
 
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+<script lang="ts">
+    import type { CreateCompletionResponse } from 'openai';
+    import { SSE } from 'sse.js';
 
-        .pt-4 {
-            margin-top: 20px;
-        }
+    let context = '';
+    let requirement = '';
+    let writingExample = '';
+    let loading = false;
+    let error = false;
+    let answer = '';
+    let copyDisabled = true;
 
-        h2 {
-            font-size: 24px;
-        }
+    const handleSubmit = async () => {
+		loading = true
+		error = false
+		answer = ''
+		context = ''
+		context = "Write longest anticle about: " + requirement + 
+		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
+		+ writingExample + "requirment of length of this article: longer the better";
 
-        #generated-article {
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 4px;
-            background-color: #fff;
-        }
-    </style>
-</head>
-<body>
-    <h1>Content Creator</h1>
-    <form on:submit|preventDefault={() => handleSubmit()}>
+		const eventSource = new SSE('/api/explain', {
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			payload: JSON.stringify({ context })
+		})
 
-        <label for="requirement">What is the article about?</label>
-        <textarea name="requirement" rows="2" bind:value={requirement}></textarea>
+		context = ''
 
-        <label for="writingExample">Provide sample articles below so your writing style and tone can be replicated.</label>
-        <textarea id="email-textarea" name="writingExample" rows="5" bind:value={writingExample}></textarea>
+		eventSource.addEventListener('error', (e) => {
+			error = true
+			loading = false
+			alert('Something went wrong!')
+		})
 
-        <button>Write Article</button>
-        <div class="pt-4">
-            <h2>Generated Article:</h2>
-            {#if answer}
-            <div id="generated-article">
-                {@html answer}
-            </div>
-            {/if}
+		eventSource.addEventListener('message', (e) => {
+			try {
+				loading = false
 
-            {#if answer}
-            <button on:click|preventDefault={() => copyToClipboard()} disabled={copyDisabled}>Copy</button>
-            {/if}
-        </div>
-    </form>
-</body>
-</html>
+				if (e.data === '[DONE]') {
+					copyDisabled = false;
+					return
+				}
+
+				const completionResponse: CreateCompletionResponse = JSON.parse(e.data)
+
+				const [{ text }] = completionResponse.choices
+
+				answer = (answer ?? '') + text
+			} catch (err) {
+				error = true
+				loading = false
+				console.error(err)
+				alert('Something went wrong!')
+			}
+		})
+
+		eventSource.stream()
+	}
+	const copyToClipboard = () => {
+		const elem = document.createElement('textarea')
+		elem.value = answer
+		document.body.appendChild(elem)
+		elem.select()
+		document.execCommand('copy')
+		document.body.removeChild(elem)
+		alert('Copied to clipboard!')
+ 	}
+</script>
+
+<h1>content creator</h1>
+<form on:submit|preventDefault={() => handleSubmit()}>
+
+	  
+	<label for="requirement" style="margin-right: 10px;">What is the article about?</label>
+	<textarea name="requirement" rows="2" style="flex: 1;" bind:value={requirement}></textarea>
+	
+	<label for="writingExample" style="margin-right: 10px;">Provide sample articles below so your writing style and tone can be replicated.</label>
+	<!--
+	<div style="display: flex; flex-direction: row; align-items: center;">
+		-->
+		<textarea id="email-textarea" name="writingExample" rows="5" bind:value={writingExample} style="width: 100%;"></textarea>
+		<!--
+		<button id="load-button" type="button" style="font-size: 16px; padding: 1px 1px;">Erick's Style</button>
+	</div>
+
+	<script>
+		const button2 = document.getElementById('load-button');
+		const textarea = document.getElementById('email-textarea');
+  
+		button2.addEventListener('click', async () => {
+		  try {
+			const response = await fetch('Erick-email-samples.txt');
+			const text = await response.text();
+			textarea.value = text;
+		  } catch (error) {
+			console.error(error);
+		  }
+		});
+	</script>
+-->
+	<button>Write Article</button>
+	<div class="pt-4">
+		<h2>Generated Article:</h2>
+		{#if answer}
+		<div>{@html answer}</div>
+		<!-- <textarea rows="20" bind:value={answer} style="width: 100%;"></textarea> -->
+		{/if}
+		
+		{#if answer}
+		  <button on:click|preventDefault={() => copyToClipboard()} disabled={copyDisabled}>Copy</button>
+		{/if}
+		
+		<script>
+		    const copyToClipboard = (text: string) => {
+		      const elem = document.createElement('textarea')
+		      elem.value = text
+		      document.body.appendChild(elem)
+		      elem.select()
+		      document.execCommand('copy')
+		      document.body.removeChild(elem)
+		      alert('Copied to clipboard!')
+		    }
+  		</script>
+	</div>
+
+</form>
