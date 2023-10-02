@@ -15,18 +15,17 @@ header {
 }
 
 header a {
-    color: linear-gradient(to right, blue, purple); /* Ensures the link inherits the color from the parent, so it stays consistent */
-    text-decoration: none; /* Removes the underline that typically appears on links */
-    display: block; /* Makes the entire area of the header a clickable link */
-}
-
-header a span {
-    display: block; /* Ensures each span takes up a full line */
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This centers the text horizontally */
 }
 
 .title {
-    @apply text-3xl font-semibold; /* Larger size for Touch Point */
-    padding: 0 0.5rem; /* Small padding to make it center relative to the subtitle */
+    @apply text-4xl font-semibold mb-2; /* Adjust the size of "Touch Point" */
+    background-image: linear-gradient(to right, blue, purple);
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
 .subtitle {
