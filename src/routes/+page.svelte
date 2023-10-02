@@ -91,7 +91,9 @@
 </style>
 
 <header>
-	<h1>Touch Point Digital Marketing Agency</h1>
+	<a href="https://touchpointdigitalmarketing.com/web-design/">
+        	<h1>Touch Point Digital Marketing Agency</h1>
+    	</a>
 	<nav>
 		<!-- Add your navigation links here -->
 	</nav>
