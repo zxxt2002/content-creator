@@ -70,60 +70,36 @@
  	}
 </script>
 
-<h1>content creator</h1>
-<form on:submit|preventDefault={() => handleSubmit()}>
+<header>
+	<h1>Touch Point Digital Marketing Agency</h1>
+	<nav>
+		<!-- Add your navigation links here -->
+	</nav>
+</header>
 
-	  
-	<label for="requirement" style="margin-right: 10px;">What is the article about?</label>
-	<textarea name="requirement" rows="2" style="flex: 1;" bind:value={requirement}></textarea>
+<div class="main-content">
+	<h1>Welcome to Touch Point Digital Marketing Agency</h1>
+	<h2>Unlocking Your Business' Potential by Maximizing the Power of the Internet.</h2>
+	<form on:submit|preventDefault={() => handleSubmit()}>
+		<label for="requirement">What is the article about?</label>
+		<textarea name="requirement" rows="2" bind:value={requirement}></textarea>
 	
-	<label for="writingExample" style="margin-right: 10px;">Provide sample articles below so your writing style and tone can be replicated.</label>
-	<!--
-	<div style="display: flex; flex-direction: row; align-items: center;">
-		-->
-		<textarea id="email-textarea" name="writingExample" rows="5" bind:value={writingExample} style="width: 100%;"></textarea>
-		<!--
-		<button id="load-button" type="button" style="font-size: 16px; padding: 1px 1px;">Erick's Style</button>
-	</div>
+		<label for="writingExample">Provide sample articles below so your writing style and tone can be replicated.</label>
+		<textarea id="email-textarea" name="writingExample" rows="5" bind:value={writingExample}></textarea>
+		<button>Write Article</button>
+	</form>
 
-	<script>
-		const button2 = document.getElementById('load-button');
-		const textarea = document.getElementById('email-textarea');
-  
-		button2.addEventListener('click', async () => {
-		  try {
-			const response = await fetch('Erick-email-samples.txt');
-			const text = await response.text();
-			textarea.value = text;
-		  } catch (error) {
-			console.error(error);
-		  }
-		});
-	</script>
--->
-	<button>Write Article</button>
 	<div class="pt-4">
 		<h2>Generated Article:</h2>
 		{#if answer}
 		<div>{@html answer}</div>
-		<!-- <textarea rows="20" bind:value={answer} style="width: 100%;"></textarea> -->
 		{/if}
-		
 		{#if answer}
 		  <button on:click|preventDefault={() => copyToClipboard()} disabled={copyDisabled}>Copy</button>
 		{/if}
-		
-		<script>
-		    const copyToClipboard = (text: string) => {
-		      const elem = document.createElement('textarea')
-		      elem.value = text
-		      document.body.appendChild(elem)
-		      elem.select()
-		      document.execCommand('copy')
-		      document.body.removeChild(elem)
-		      alert('Copied to clipboard!')
-		    }
-  		</script>
 	</div>
+</div>
 
-</form>
+<footer>
+	<!-- You can add footer content here -->
+</footer>
