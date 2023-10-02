@@ -92,7 +92,7 @@
 
 <header>
 	<a href="https://touchpointdigitalmarketing.com/web-design/">
-        	<span>touch point</span>
+        	<span class = "title">touch point</span>
 		<span class="subtitle">Digital Marketing Agency</span>
     	</a>
 	<nav>
