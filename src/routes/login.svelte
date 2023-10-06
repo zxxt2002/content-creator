@@ -12,6 +12,12 @@
     const closeLogin = () => {
         dispatch('close');
     };
+
+    let isPopupVisible = true; // This variable will handle the visibility of the popup
+
+    const closePopup = () => {
+        isPopupVisible = false;
+    };
 </script>
 
 <h2>Login</h2>
@@ -80,9 +86,10 @@
     }
 </style>
 
+{#if isPopupVisible}
 <div class="overlay"></div>
 <div class="modal">
-    <button on:click={closeLogin} class="close-btn">X</button>
+    <button on:click={closeLogin} class="close-btn">x</button>
     <h2>Login</h2>
     <form on:submit|preventDefault={handleLogin}>
         <label for="username">Username:</label>
@@ -94,3 +101,4 @@
         <button type="submit">Login</button>
     </form>
 </div>
+{/if}
