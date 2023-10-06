@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CreateCompletionResponse } from 'openai'
 	import { SSE } from 'sse.js'
-	import Login from './Login.svelte'; // Ensure the correct path
+	import Login from './login.svelte'; // Ensure the correct path
 
 
 	let context = ''
