@@ -96,7 +96,8 @@
 		<span class="subtitle">Digital Marketing Agency</span>
     	</a>
 	<nav>
-		<!-- Add your navigation links here -->
+		<a href="/login" class="nav-link">Login</a>
+        	<a href="/history" class="nav-link">History</a>
 	</nav>
 </header>
 
