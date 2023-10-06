@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { CreateCompletionResponse } from 'openai'
 	import { SSE } from 'sse.js'
+	import Login from './Login.svelte'; // Ensure the correct path
+
 
 	let context = ''
 	let requirement = ''
@@ -9,7 +11,10 @@
 	let loading = false
 	let error = false
 	let answer = ''
-	let copyDisabled = true;
+
+
+    	let showLogin = false; // Add this to track if the login modal should be shown
+
 
 	const handleSubmit = async () => {
 		loading = true
@@ -96,7 +101,10 @@
 		<span class="subtitle">Digital Marketing Agency</span>
     	</a>
 	<nav>
-		<a href="/login" class="nav-link">Login</a>
+		<button on:click={() => showLogin = !showLogin}>Login</button>
+		{#if showLogin}
+		    <Login />
+		{/if}
         	<a href="/history" class="nav-link">History</a>
 	</nav>
 </header>
