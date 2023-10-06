@@ -1,10 +1,16 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
     let username = '';
     let password = '';
 
     const handleLogin = () => {
         // Handle your login logic here
         // Likely involves sending username and password to your backend
+    };
+
+    const closeLogin = () => {
+        dispatch('close');
     };
 </script>
 
@@ -41,10 +47,21 @@
         background-color: rgba(0,0,0,0.7);
         z-index: 50;
     }
+
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+    }
 </style>
 
 <div class="overlay"></div>
 <div class="modal">
+    <button on:click={closeLogin} class="close-btn">X</button>
     <h2>Login</h2>
     <form on:submit|preventDefault={handleLogin}>
         <label for="username">Username:</label>
