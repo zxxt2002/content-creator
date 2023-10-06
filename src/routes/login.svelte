@@ -53,9 +53,30 @@
         right: 10px;
         top: 10px;
         background-color: transparent;
-        border: none;
+        border: 2px solid gray; /* Adding a border */
+        color: gray; /* Change the button text color */
         cursor: pointer;
         font-size: 20px;
+        border-radius: 50%; /* Makes it round */
+        width: 24px;
+        height: 24px;
+        line-height: 20px; /* Center the 'X' vertically */
+        text-align: center; /* Center the 'X' horizontally */
+    }
+    .close-btn:hover {
+        background-color: gray;
+        color: white;
+    }
+
+    input {
+        padding: 8px 12px;
+        border: 2px solid gray; /* Gray outline */
+        border-radius: 4px; /* Optional: to have rounded corners */
+    }
+
+    input:focus {
+        outline: none;
+        border-color: darkgray; /* Darker border when the input is focused */
     }
 </style>
 
