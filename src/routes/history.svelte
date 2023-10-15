@@ -6,6 +6,7 @@
     export let onClose = () => {};  // accept the close function from parent
 
     let selectedContent = null;
+    let isViewingHistory = true;
     let historyItems = [
         'Generated content example 1...',
         'Generated content example 2...',
@@ -18,6 +19,9 @@
         selectedContent = content;
         isPopupVisible = false;
     };
+    const returnToHistory = () => {
+        isViewingHistory = true;
+    }
     const closeHistoryPopup = () => {
         onClose();  // use the function passed from the parent to close the popup
         dispatch('close');  // this will notify any parent component if needed
@@ -32,12 +36,17 @@
 <div class="overlay fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 z-10"></div>
 <div class="modal" style="--popupHeight: {popupHeight}">
     <button on:click={closeHistoryPopup} class="close-btn">x</button>
-    <h2 class="text-3xl font-medium pb-1">History</h2>
-    <div class="history-list">
-        {#each historyItems as item}
-            <button on:click={() => viewContent(item)} class="history-item">{item}</button>
-        {/each}
-    </div>
+    {#if isViewingHistory}
+        <h2 class="text-3xl font-medium pb-1">History</h2>
+        <div class="history-list">
+            {#each historyItems as item}
+                <button on:click={() => viewContent(item)} class="history-item">{item}</button>
+            {/each}
+        </div>
+    {:else}
+        <button on:click={returnToHistory} class="history-item">Back</button>
+        <div class="content">{selectedContent}</div>
+    {/if}
 </div>
 {/if}
 
