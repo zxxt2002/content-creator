@@ -23,7 +23,7 @@
 		context = ''
 		context = "Write longest anticle about: " + requirement + 
 		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
-		+ writingExample + "requirment of length of this article: longer the better";
+		+ writingExample + "requirement of length of this article: longer the better";
 
 		const eventSource = new SSE('/api/explain', {
 			headers: {
@@ -96,7 +96,7 @@
         justify-content: space-between;
     }
     .nav-link {
-        margin-left: 15px;  // Add space between buttons
+        margin-left: 15px;  
     }
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
