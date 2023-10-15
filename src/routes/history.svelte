@@ -5,6 +5,12 @@
     export let visible = false;  // accept the prop from parent
     export let onClose = () => {};  // accept the close function from parent
 
+    let selectedContent = null;
+
+    const viewContent = (content) => {
+        selectedContent = content;
+        isPopupVisible = false;
+    };
     const closeHistoryPopup = () => {
         onClose();  // use the function passed from the parent to close the popup
         dispatch('close');  // this will notify any parent component if needed
@@ -22,15 +28,9 @@
     <h2 class="text-3xl font-medium pb-1">History</h2>
     <!-- Here you can list out your history content -->
     <ul class="history-list">
-        <li class="history-item">
-            <span class="content">Generated content example 1...</span>
-        </li>
-        <li class="history-item">
-            <span class="content">Generated content example 2...</span>
-        </li>
-        <li class="history-item">
-            <span class="content">Generated content example 3...</span>
-        </li>
+        <button on:click={() => viewContent('Generated content example 1...')}>Generated content example 1...</button>
+        <button on:click={() => viewContent('Generated content example 2...')}>Generated content example 2...</button>
+        <button on:click={() => viewContent('Generated content example 3...')}>Generated content example 3...</button>
         <!-- Add more history items as required -->
     </ul>
 </div>
