@@ -10,6 +10,7 @@
     };
 
     const closeLogin = () => {
+        isPopupVisible = false;
         dispatch('close');
     };
 
@@ -20,16 +21,7 @@
     };
 </script>
 
-<h2>Login</h2>
-<form on:submit|preventDefault={handleLogin}>
-    <label for="username">Username:</label>
-    <input type="text" bind:value={username} />
 
-    <label for="password">Password:</label>
-    <input type="password" bind:value={password} />
-
-    <button type="submit">Login</button>
-</form>
 
 <style>
     div.modal {
