@@ -2,7 +2,7 @@
 	import type { CreateCompletionResponse } from 'openai'
 	import { SSE } from 'sse.js'
 	import Login from './login.svelte'; // Ensure the correct path
-
+	import History from './history.svelte';
 
 	let context = ''
 	let requirement = ''
