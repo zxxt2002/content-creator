@@ -105,7 +105,6 @@
 		{#if showLogin}
 		    <Login />
 		{/if}
-        	<a href="/history" class="nav-link">History</a>
 
 	        <button on:click={() => showHistory = !showHistory} class="nav-link">History</button>
 	        {#if showHistory}
