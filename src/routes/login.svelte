@@ -51,19 +51,20 @@
         right: 10px;
         top: 10px;
         background-color: transparent;
-        border: 2px solid gray; /* Adding a border */
+        border: none; /* Adding a border */
         color: gray; /* Change the button text color */
         cursor: pointer;
         font-size: 20px;
-        border-radius: 50%; /* Makes it round */
+        front-weight: bold;
+        //border-radius: 50%; /* Makes it round */
         width: 24px;
         height: 24px;
         line-height: 20px; /* Center the 'X' vertically */
         text-align: center; /* Center the 'X' horizontally */
     }
     .close-btn:hover {
-        background-color: gray;
-        color: white;
+        //background-color: gray;
+        color: darkgray;
     }
 
     input {
@@ -79,18 +80,17 @@
 </style>
 
 {#if isPopupVisible}
-<div class="overlay"></div>
-<div class="modal">
-    <button on:click={closeLogin} class="close-btn">x</button>
-    <h2>Login</h2>
-    <form on:submit|preventDefault={handleLogin}>
-        <label for="username">Username:</label>
-        <input type="text" bind:value={username} />
+<div class="overlay fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 z-10"></div>
+<div class="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-lg shadow-lg flex flex-col justify-between z-20">
+    <button on:click={closeLogin} class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 text-2xl font-bold w-6 h-6 flex items-center justify-center">x</button>
+        <h2 class="text-3xl font-medium pb-1">Login</h2>
+        <form on:submit|preventDefault={handleLogin}>
+            <label for="username" class="pb-2 text-lg">Username:</label>
+            <input type="text" bind:value={username} class="rounded-md p-2 text-zinc-900 border border-gray-300 w-full mb-4 focus:border-gray-500" />
 
-        <label for="password">Password:</label>
-        <input type="password" bind:value={password} />
-
-        <button type="submit">Login</button>
-    </form>
+            <label for="password" class="pb-2 text-lg">Password:</label>
+            <input type="password" bind:value={password} class="rounded-md p-2 text-zinc-900 border border-gray-300 w-full mb-4 focus:border-gray-500" />
+        </form>
+    </div>
+    <button type="submit" on:click={handleLogin} class="px-5 py-3 font-medium text-lg bg-blue-700 text-white rounded-md mt-4 hover:bg-blue-800 transition-all duration-200 ease-in-out">Login</button>
 </div>
-{/if}
