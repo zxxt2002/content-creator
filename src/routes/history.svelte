@@ -23,10 +23,13 @@
     <!-- Here you can list out your history content -->
     <ul class="history-list">
         <li class="history-item">
-            <span class="icon">📄</span> Visited: Home Page
+            <span class="content">Generated content example 1...</span>
         </li>
         <li class="history-item">
-            <span class="icon">📄</span> Visited: About Page
+            <span class="content">Generated content example 2...</span>
+        </li>
+        <li class="history-item">
+            <span class="content">Generated content example 3...</span>
         </li>
         <!-- Add more history items as required -->
     </ul>
@@ -46,9 +49,8 @@
         padding: 5px 0;
     }
 
-    .icon {
-        margin-right: 10px;
-        font-size: 1.2rem;
+    .content {
+        font-size: 1rem;
     }
 
     .close-btn {
