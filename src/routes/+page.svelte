@@ -14,7 +14,7 @@
 
 
     	let showLogin = false; // Add this to track if the login modal should be shown
-
+	let showHistory = false;
 
 	const handleSubmit = async () => {
 		loading = true
@@ -106,6 +106,11 @@
 		    <Login />
 		{/if}
         	<a href="/history" class="nav-link">History</a>
+
+	        <button on:click={() => showHistory = !showHistory} class="nav-link">History</button>
+	        {#if showHistory}
+	            <History />
+	        {/if}
 	</nav>
 </header>
 
