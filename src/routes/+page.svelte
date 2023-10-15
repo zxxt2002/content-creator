@@ -95,6 +95,9 @@
         align-items: center; 
         justify-content: space-between;
     }
+    .nav-link {
+        margin-left: 15px;  // Add space between buttons
+    }
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
     }
@@ -111,7 +114,7 @@
 		    <Login />
 		{/if}
 
-	        <button on:click={() => showHistory = !showHistory}>History</button>
+	        <button on:click={() => showHistory = true} class="nav-link">History</button>
 	        {#if showHistory}
 	            <History />
 	        {/if}
