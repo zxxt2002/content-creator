@@ -2,12 +2,13 @@
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
 
+    export let visible = false;  // accept the prop from parent
+    export let onClose = () => {};  // accept the close function from parent
+
     const closeHistoryPopup = () => {
-        isPopupVisible = false;
+        onClose();  // use the function passed from the parent to close the popup
         dispatch('close');  // this will notify any parent component if needed
     };
-
-    let isPopupVisible = true;
 </script>
 
 <!-- Your content before the button -->
