@@ -16,7 +16,7 @@
 
 <!-- Your content before the button -->
 
-<button on:click={showHistoryPopup} class="px-5 py-3 font-medium text-lg bg-blue-700 text-white rounded-md mt-4 hover:bg-blue-800 transition-all duration-200 ease-in-out">History</button>
+//<button on:click={showHistoryPopup} class="px-5 py-3 font-medium text-lg bg-blue-700 text-white rounded-md mt-4 hover:bg-blue-800 transition-all duration-200 ease-in-out">History</button>
 
 {#if isPopupVisible}
 <div class="overlay" on:click={closeHistoryPopup}></div>
