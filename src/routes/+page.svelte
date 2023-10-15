@@ -3,6 +3,7 @@
 	import { SSE } from 'sse.js'
 	import Login from './login.svelte'; // Ensure the correct path
 	import History from './history.svelte';
+	import ContentView from './contentView.svelte';
 
 	let context = ''
 	let requirement = ''
@@ -12,7 +13,7 @@
 	let error = false
 	let answer = ''
 
-
+	let selectedContent = null;
     	let showLogin = false; // Add this to track if the login modal should be shown
 	let showHistory = false;
 
@@ -142,6 +143,10 @@
 		  <button on:click|preventDefault={() => copyToClipboard()} disabled={copyDisabled}>Copy</button>
 		{/if}
 	</div>
+
+	{#if selectedContent}
+	    <ContentView content={selectedContent} on:closecontent={() => { selectedContent = null; showHistory = true; }} />
+	{/if}
 </div>
 
 <footer>
