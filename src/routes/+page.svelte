@@ -96,7 +96,7 @@
         justify-content: space-between;
     }
     .nav-link {
-        margin-left: 15px;  
+        margin-left: 30px;  
     }
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
