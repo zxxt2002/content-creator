@@ -90,7 +90,7 @@
 
             <label for="password" class="pb-2 text-lg">Password:</label>
             <input type="password" bind:value={password} class="rounded-md p-2 text-zinc-900 border border-gray-300 w-full mb-4 focus:border-gray-500" />
-        </form>
-    </div>
     <button type="submit" on:click={handleLogin} class="px-5 py-3 font-medium text-lg bg-blue-700 text-white rounded-md mt-4 hover:bg-blue-800 transition-all duration-200 ease-in-out">Login</button>
+  </form>
 </div>
+{/if}
