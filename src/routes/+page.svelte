@@ -116,7 +116,7 @@
 
 	        <button on:click={() => showHistory = true}>History</button>
 	        {#if showHistory}
-	            <History />
+	            <History visible={showHistory} onClose={() => showHistory = false} />
 	        {/if}
 	</nav>
 </header>
