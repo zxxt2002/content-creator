@@ -55,7 +55,9 @@
     .modal {
         display: flex;
         flex-direction: column;
-        height: var(--popupHeight);
+        min-height: 150px;  /* set a minimum height */
+        max-height: 80vh;   /* 80% of viewport height, adjust as needed */
+        overflow-y: auto;   /* will show scroll if content is longer than max-height */
         align-items: center;
         justify-content: center;
         /* ... add other modal styles here ... */
