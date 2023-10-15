@@ -6,7 +6,14 @@
     export let onClose = () => {};  // accept the close function from parent
 
     let selectedContent = null;
+    let historyItems = [
+        'Generated content example 1...',
+        'Generated content example 2...',
+        'Generated content example 3...',
+        // Add more history items as needed
+    ];
 
+    let popupHeight = `${historyItems.length * 50}px`; 
     const viewContent = (content) => {
         selectedContent = content;
         isPopupVisible = false;
@@ -23,30 +30,38 @@
 
 {#if visible}
 <div class="overlay fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 z-10"></div>
-<div class="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg shadow-lg flex flex-col justify-between z-20 w-4/5 h-4/5 overflow-y-scroll">
+<div class="modal" style="--popupHeight: {popupHeight}">
     <button on:click={closeHistoryPopup} class="close-btn">x</button>
     <h2 class="text-3xl font-medium pb-1">History</h2>
-    <!-- Here you can list out your history content -->
-    <ul class="history-list">
-        <button on:click={() => viewContent('Generated content example 1...')}>Generated content example 1...</button>
-        <button on:click={() => viewContent('Generated content example 2...')}>Generated content example 2...</button>
-        <button on:click={() => viewContent('Generated content example 3...')}>Generated content example 3...</button>
-        <!-- Add more history items as required -->
-    </ul>
+    <div class="history-list">
+        {#each historyItems as item}
+            <button on:click={() => viewContent(item)} class="history-item">{item}</button>
+        {/each}
+    </div>
 </div>
 {/if}
 
 <style>
     /* Add the same styles for overlay, modal, and close-btn from your login.svelte */
+    .modal {
+        display: flex;
+        flex-direction: column;
+        height: var(--popupHeight);
+        align-items: center;
+        justify-content: center;
+        /* ... add other modal styles here ... */
+    }
     .history-list {
         list-style: none;
         padding: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* spacing between buttons */
     }
 
     .history-item {
-        display: flex;
-        align-items: center;
-        padding: 5px 0;
+        height: 50px;
     }
 
     .content {
