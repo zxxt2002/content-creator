@@ -41,6 +41,19 @@ header h1 {
 	@apply text-2xl font-semibold;
 }
 
+.close-btn {
+    background: none; /* No background */
+    border: none; /* Remove any borders */
+    color: darkgray; /* Initial color */
+    font-size: 24px; /* Adjust as necessary */
+    cursor: pointer;
+    transition: color 0.2s; /* Smooth color transition on hover */
+}
+
+.close-btn:hover {
+    color: lightgray; /* Color on hover */
+}
+
 .main-content {
 	@apply flex flex-col items-center py-20 bg-white pt-32;
 }
