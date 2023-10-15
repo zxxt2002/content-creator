@@ -114,7 +114,7 @@
 		    <Login />
 		{/if}
 
-	        <button on:click={() => showHistory = true} class="nav-link">History</button>
+	        <button on:click={() => showHistory = true}>History</button>
 	        {#if showHistory}
 	            <History />
 	        {/if}
