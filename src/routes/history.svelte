@@ -3,7 +3,7 @@
     const dispatch = createEventDispatcher();
 
     const closeHistoryPopup = () => {
-        isPopupVisible = false;
+        isPopupVisible = true;
         dispatch('close');  // this will notify any parent component if needed
     };
 
