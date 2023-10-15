@@ -17,7 +17,7 @@
 
 {#if visible}
 <div class="overlay fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 z-10"></div>
-<div class="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-lg shadow-lg flex flex-col justify-between z-20">
+<div class="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg shadow-lg flex flex-col justify-between z-20 w-4/5 h-4/5 overflow-y-scroll">
     <button on:click={closeHistoryPopup} class="close-btn">x</button>
     <h2 class="text-3xl font-medium pb-1">History</h2>
     <!-- Here you can list out your history content -->
