@@ -90,6 +90,11 @@
         background-color: white; /* To ensure text/content beneath doesn't show through */
         z-index: 10; /* Keep the header above all other content */
     }
+    nav {
+        display: flex;
+        align-items: center; 
+        justify-content: space-between;
+    }
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
     }
@@ -106,7 +111,7 @@
 		    <Login />
 		{/if}
 
-	        <button on:click={() => showHistory = !showHistory} class="nav-link">History</button>
+	        <button on:click={() => showHistory = !showHistory}>History</button>
 	        {#if showHistory}
 	            <History />
 	        {/if}
