@@ -95,8 +95,8 @@
         align-items: center; 
         justify-content: space-between;
     }
-    .nav-link {
-        margin-left: 30px;  
+    button + button {
+	margin-left: 10px;
     }
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
