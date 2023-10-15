@@ -17,7 +17,7 @@
     let popupHeight = `${historyItems.length * 50}px`; 
     const viewContent = (content) => {
         selectedContent = content;
-        isPopupVisible = false;
+        console.log(selectedContent);
     };
     const returnToHistory = () => {
         isViewingHistory = true;
