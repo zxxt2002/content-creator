@@ -41,6 +41,14 @@ header h1 {
 	@apply text-2xl font-semibold;
 }
 
+.modal {
+    @apply fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-lg shadow-xl z-50;
+}
+
+.overlay {
+    @apply fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 z-40;
+}
+
 .close-btn {
     background: none; /* No background */
     border: none; /* Remove any borders */
