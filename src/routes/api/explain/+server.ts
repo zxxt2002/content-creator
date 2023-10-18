@@ -61,7 +61,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		if (!response.ok) {
 			const err = await response.json()
 			console.error(err)
-			throw new Error('Failed to create completion', err)
+			throw new Error('Failed to create completion: ${err.message}')
 		}
 
 		return new Response(response.body, {
