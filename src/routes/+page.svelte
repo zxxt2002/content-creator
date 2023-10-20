@@ -102,6 +102,11 @@
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
     }
+    select {
+    border: 1px solid grey;
+    padding: 5px;
+    border-radius: 5px;  /* Optional: to round the corners */
+    }
 </style>
 
 <header>
@@ -134,10 +139,10 @@
 		<button>Write Article</button>
 		<label for="genre">Select Genre:</label>
 		<select id="genre" bind:value={selectedGenre}>
-		    <option value="business">Business</option>
-		    <option value="technology">Technology</option>
-		    <option value="health">Health</option>
-		    <option value="entertainment">Entertainment</option>
+		    <option value="descriptive">Descriptive</option>
+		    <option value="expository">Expository</option>
+		    <option value="narrative">Narrative</option>
+		    <option value="poetic">Poetic</option>
 		    <!-- Add more genres as needed -->
 		</select>
 	</form>
