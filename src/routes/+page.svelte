@@ -8,7 +8,7 @@
 	let context = ''
 	let requirement = ''
 	let writingExample = ''
-
+	let selectedGenre = '';
 	let loading = false
 	let error = false
 	let answer = ''
@@ -22,7 +22,7 @@
 		error = false
 		answer = ''
 		context = ''
-		context = "Write longest anticle about: " + requirement + 
+		context = "Genre: " + selectedGenre + ". Write longest anticle about: " + requirement + 
 		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
 		+ writingExample + "requirement of length of this article: longer the better";
 
@@ -132,6 +132,14 @@
 		<label for="writingExample">Provide sample articles below so your writing style and tone can be replicated.</label>
 		<textarea id="email-textarea" name="writingExample" rows="5" bind:value={writingExample}></textarea>
 		<button>Write Article</button>
+		<label for="genre">Select Genre:</label>
+		<select id="genre" bind:value={selectedGenre}>
+		    <option value="business">Business</option>
+		    <option value="technology">Technology</option>
+		    <option value="health">Health</option>
+		    <option value="entertainment">Entertainment</option>
+		    <!-- Add more genres as needed -->
+		</select>
 	</form>
 
 	<div class="pt-4">
