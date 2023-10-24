@@ -12,6 +12,7 @@
 	let loading = false
 	let error = false
 	let answer = ''
+	let copyDisabled = true;
 
 	let selectedContent = null;
     	let showLogin = false; // Add this to track if the login modal should be shown
