@@ -8,7 +8,7 @@
 	let context = ''
 	let requirement = ''
 	let writingExample = ''
-
+	let selectedGenre = '';
 	let loading = false
 	let error = false
 	let answer = ''
@@ -23,7 +23,7 @@
 		error = false
 		answer = ''
 		context = ''
-		context = "Write longest anticle about: " + requirement + 
+		context = "Genre: " + selectedGenre + ". Write longest anticle about: " + requirement + 
 		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
 		+ writingExample + "requirement of length of this article: longer the better";
 
@@ -103,6 +103,11 @@
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
     }
+    select {
+    border: 1px solid grey;
+    padding: 5px;
+    border-radius: 5px;  /* Optional: to round the corners */
+    }
 </style>
 
 <header>
@@ -133,6 +138,14 @@
 		<label for="writingExample">Provide sample articles below so your writing style and tone can be replicated.</label>
 		<textarea id="email-textarea" name="writingExample" rows="5" bind:value={writingExample}></textarea>
 		<button>Write Article</button>
+		<label for="genre">Select Genre:</label>
+		<select id="genre" bind:value={selectedGenre}>
+		    <option value="descriptive">Descriptive</option>
+		    <option value="expository">Expository</option>
+		    <option value="narrative">Narrative</option>
+		    <option value="poetic">Poetic</option>
+		    <!-- Add more genres as needed -->
+		</select>
 	</form>
 
 	<div class="pt-4">
