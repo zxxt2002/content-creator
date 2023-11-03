@@ -94,7 +94,7 @@
 	        answer = '';
 	
 	        // Define your initial context here
-	        const initialContext = `Article Topic: ${$requirement}\n\nWriting Style Reference:\n${$writingExample}\n\nRequirement: The article should be as long as possible without repeating any words from the writing style reference above.`;
+	        const initialContext = `Article Topic: ${requirement}\n\nWriting Style Reference:\n${writingExample}\n\nRequirement: The article should be as long as possible without repeating any words from the writing style reference above.`;
 	
 	        // Start the content generation process
 	        generateContent(initialContext);
