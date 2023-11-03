@@ -46,6 +46,7 @@
 
 	        eventSource.addEventListener('message', (e) => {
 	            try {
+			console.log('Event data:', e.data); // Log the event data here
 	                if (e.data === '[DONE]') {
 	                    loading = false;
 	                    copyDisabled = false;
@@ -72,8 +73,8 @@
 	            } catch (err) {
 		        error = true;
 		        loading = false;
-	                console.error(err);
-	                alert('Something went wrong!');
+	                console.error('Error:', err.message);
+	                alert('Something went wrong!' + err.message);
 	                eventSource.close(); // Important to close the connection
 	            }
 	        });
