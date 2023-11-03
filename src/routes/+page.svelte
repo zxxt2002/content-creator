@@ -34,7 +34,7 @@
 			error = true
 			loading = false
 			alert('Something went wrong!')
-		})
+		});
 
 	        eventSource.addEventListener('message', (e) => {
 	            try {
@@ -82,9 +82,9 @@
 		alert('Copied to clipboard!')
  	}
 	    const handleSubmit = () => {
-	        loading.set(true);
-	        error.set(false);
-	        answer.set('');
+	        loading = true;
+	        error = false;
+	        answer = '';
 	
 	        // Define your initial context here
 	        const initialContext = `Article Topic: ${$requirement}\n\nWriting Style Reference:\n${$writingExample}\n\nRequirement: The article should be as long as possible without repeating any words from the writing style reference above.`;
