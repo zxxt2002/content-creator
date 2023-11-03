@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { CreateCompletionResponse } from 'openai'
+    	import { onMount } from 'svelte';
 	import { SSE } from 'sse.js'
 	import Login from './login.svelte'; // Ensure the correct path
 	import History from './history.svelte';
 	import ContentView from './contentView.svelte';
 
-	let context = ''
+	//let context = ''
 	let requirement = ''
 	let writingExample = ''
 
@@ -17,6 +18,12 @@
 	let selectedContent = null;
     	let showLogin = false; // Add this to track if the login modal should be shown
 	let showHistory = false;
+	    
+	onMount(() => {
+		// Initialize or fetch the values for requirement and writingExample here
+	        requirement = 'Your initial requirement value';
+	        writingExample = 'Your initial writing example value';
+	});
 
 	const generateContent = async (currentContext) => {
 		loading = true;
