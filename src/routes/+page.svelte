@@ -19,7 +19,9 @@
 	let showHistory = false;
 
 	const generateContent = async (currentContext) => {
-
+		loading = true;
+		error = false;
+		answer = ''; // Reset answer for a new generation process
 		const eventSource = new SSE('/api/explain', {
 			headers: {
 				'Content-Type': 'application/json'
@@ -37,15 +39,15 @@
 	        eventSource.addEventListener('message', (e) => {
 	            try {
 	                if (e.data === '[DONE]') {
-	                    loading.set(false);
-	                    copyDisabled.set(false);
+	                    loading = false;
+	                    copyDisabled = false;
 	                    eventSource.close(); // Important to close the connection
 	                    return;
 	                }
 	
 	                const completionResponse = JSON.parse(e.data);
 	                const [{ text }] = completionResponse.choices;
-	                answer.update(n => n + text); // Concatenate each new part to the existing answer.
+	                answer += text; // Concatenate each new part to the existing answer.
 	
 	                // Check if you need to continue generating content
 	                if (shouldContinueGenerating(answer)) {
@@ -55,13 +57,13 @@
 	                    generateContent(newContext);
 	                } else {
 	                    // Content generation is complete
-	                    loading.set(false);
-	                    copyDisabled.set(false);
+	                    loading = false;
+	                    copyDisabled = false;
 	                    eventSource.close(); // Important to close the connection
 	                }
 	            } catch (err) {
-	                error.set(true);
-	                loading.set(false);
+		        error = true;
+		        loading = false;
 	                console.error(err);
 	                alert('Something went wrong!');
 	                eventSource.close(); // Important to close the connection
