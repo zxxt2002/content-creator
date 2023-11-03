@@ -48,7 +48,7 @@
 			},
 			payload: JSON.stringify({ 
 				context: currentContext,
-				max_tokens: 250
+				max_tokens: 25000
 			})
 		});
 
