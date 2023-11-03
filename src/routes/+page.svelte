@@ -38,10 +38,12 @@
 	    return `${currentContext}\n${newText}`;
 	};
 
-	const generateContent = async (currentContext) => {
+	const generateContent = async (currentContext, iteration = 0) => {
 		loading = true;
 		error = false;
-		answer = ''; // Reset answer for a new generation process
+		if (iteration === 0) {
+	            answer = ''; // Reset answer only when starting the first iteration
+	        }
 		const eventSource = new SSE('/api/explain', {
 			headers: {
 				'Content-Type': 'application/json'
@@ -58,44 +60,38 @@
 			loading = false
 			console.error('EventSource error:', e);
     			alert('Something went wrong! Check the console for more details.');
+			eventSource.close();
 		});
 
 	        eventSource.addEventListener('message', (e) => {
 	            try {
-			console.log('Event data:', e.data); // Log the event data here
 	                if (e.data === '[DONE]') {
-	                    loading = false;
-	                    copyDisabled = false;
-	                    eventSource.close(); // Important to close the connection
+	                    iteration++;
+	                    if (iteration < 3) {
+	                        // Continue with next iteration
+	                        const newContext = updateContextWithNewContent(currentContext, answer);
+	                        generateContent(newContext, iteration);
+	                    } else {
+	                        // Final iteration completed
+	                        loading = false;
+	                        copyDisabled = false;
+	                    }
+	                    eventSource.close();
 	                    return;
 	                }
 	
 	                const completionResponse = JSON.parse(e.data);
 	                const [{ text, usage }] = completionResponse.choices;
-	                answer += text; // Concatenate each new part to the existing answer.
-
-			requestCount++;
-
-	                // Check if you need to continue generating content
-	                if (shouldContinueGenerating(answer) && requestCount < 50) {
-	                    // Update the context with the new content
-	                    const newContext = updateContextWithNewContent(currentContext, text);
-	                    // Recursively call the function to generate more content
-	                    generateContent(newContext);
-	                } else {
-	                    // Content generation is complete
-	                    loading = false;
-	                    copyDisabled = false;
-	                    eventSource.close(); // Important to close the connection
-	                }
+	                answer += text; // Append each new part to the existing answer.
 	            } catch (err) {
-		        error = true;
-		        loading = false;
+	                error = true;
+	                loading = false;
 	                console.error('Error:', err.message);
 	                alert('Something went wrong!' + err.message);
-	                eventSource.close(); // Important to close the connection
+	                eventSource.close();
 	            }
 	        });
+
 
 		eventSource.stream()
 	}
@@ -111,13 +107,12 @@
 	    const handleSubmit = () => {
 	        loading = true;
 	        error = false;
-	        answer = '';
 	
 	        // Define your initial context here
 	        const initialContext = `Article Topic: ${requirement}\n\nWriting Style Reference:\n${writingExample}\n\nRequirement: The article should be as long as possible without repeating any words from the writing style reference above.`;
 	
 	        // Start the content generation process
-	        generateContent(initialContext);
+	        generateContent(initialContext, 0);
 	}
 </script>
 
