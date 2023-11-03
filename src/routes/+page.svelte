@@ -46,7 +46,10 @@
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			payload: JSON.stringify({ context: currentContext })
+			payload: JSON.stringify({ 
+				context: currentContext,
+				max_tokens: 250
+			})
 		});
 
 
