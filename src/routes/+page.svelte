@@ -77,7 +77,7 @@
 			requestCount++;
 
 	                // Check if you need to continue generating content
-	                if (shouldContinueGenerating(answer) && requestCount < 3) {
+	                if (shouldContinueGenerating(answer) && requestCount < 100) {
 	                    // Update the context with the new content
 	                    const newContext = updateContextWithNewContent(currentContext, text);
 	                    // Recursively call the function to generate more content
