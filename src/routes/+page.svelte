@@ -14,6 +14,8 @@
 	let error = false
 	let answer = ''
 	let copyDisabled = true;
+	let tokenUsage = 0;
+	let requestCount = 0;
 
 	let selectedContent = null;
     	let showLogin = false; // Add this to track if the login modal should be shown
@@ -66,11 +68,13 @@
 	                }
 	
 	                const completionResponse = JSON.parse(e.data);
-	                const [{ text }] = completionResponse.choices;
+	                const [{ text, usage }] = completionResponse.choices;
 	                answer += text; // Concatenate each new part to the existing answer.
-	
+
+			requestCount++;
+
 	                // Check if you need to continue generating content
-	                if (shouldContinueGenerating(answer)) {
+	                if (shouldContinueGenerating(answer) && requestCount < 3) {
 	                    // Update the context with the new content
 	                    const newContext = updateContextWithNewContent(currentContext, text);
 	                    // Recursively call the function to generate more content
