@@ -45,6 +45,11 @@
 	            answer = ''; // Reset answer only when starting the first iteration
 	        }
 		const maxTokensPerRequest = 1000; // Adjust this value as needed
+		const maxContextLength = 4000;
+		if (currentContext.length > maxContextLength - maxTokensPerRequest) {
+		        const startIndex = currentContext.length - (maxContextLength - maxTokensPerRequest);
+		        currentContext = currentContext.substring(startIndex);
+		    }
 		const eventSource = new SSE('/api/explain', {
 			headers: {
 				'Content-Type': 'application/json'
