@@ -18,23 +18,15 @@
     	let showLogin = false; // Add this to track if the login modal should be shown
 	let showHistory = false;
 
-	const handleSubmit = async () => {
-		loading = true
-		error = false
-		answer = ''
-		context = ''
-		context = "Write longest anticle about: " + requirement + 
-		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
-		+ writingExample + "requirement of length of this article: longer the better";
+	const generateContent = async (currentContext) => {
 
 		const eventSource = new SSE('/api/explain', {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			payload: JSON.stringify({ context })
-		})
+			payload: JSON.stringify({ context: currentContext })
+		});
 
-		context = ''
 
 		eventSource.addEventListener('error', (e) => {
 			error = true
@@ -42,27 +34,39 @@
 			alert('Something went wrong!')
 		})
 
-		eventSource.addEventListener('message', (e) => {
-			try {
-				loading = false
-
-				if (e.data === '[DONE]') {
-					copyDisabled = false;
-					return
-				}
-
-				const completionResponse: CreateCompletionResponse = JSON.parse(e.data)
-
-				const [{ text }] = completionResponse.choices
-
-				answer = (answer ?? '') + text
-			} catch (err) {
-				error = true
-				loading = false
-				console.error(err)
-				alert('Something went wrong!')
-			}
-		})
+	        eventSource.addEventListener('message', (e) => {
+	            try {
+	                if (e.data === '[DONE]') {
+	                    loading.set(false);
+	                    copyDisabled.set(false);
+	                    eventSource.close(); // Important to close the connection
+	                    return;
+	                }
+	
+	                const completionResponse = JSON.parse(e.data);
+	                const [{ text }] = completionResponse.choices;
+	                answer.update(n => n + text); // Concatenate each new part to the existing answer.
+	
+	                // Check if you need to continue generating content
+	                if (shouldContinueGenerating(answer)) {
+	                    // Update the context with the new content
+	                    const newContext = updateContextWithNewContent(currentContext, text);
+	                    // Recursively call the function to generate more content
+	                    generateContent(newContext);
+	                } else {
+	                    // Content generation is complete
+	                    loading.set(false);
+	                    copyDisabled.set(false);
+	                    eventSource.close(); // Important to close the connection
+	                }
+	            } catch (err) {
+	                error.set(true);
+	                loading.set(false);
+	                console.error(err);
+	                alert('Something went wrong!');
+	                eventSource.close(); // Important to close the connection
+	            }
+	        });
 
 		eventSource.stream()
 	}
@@ -75,6 +79,17 @@
 		document.body.removeChild(elem)
 		alert('Copied to clipboard!')
  	}
+	    const handleSubmit = () => {
+	        loading.set(true);
+	        error.set(false);
+	        answer.set('');
+	
+	        // Define your initial context here
+	        const initialContext = `Article Topic: ${$requirement}\n\nWriting Style Reference:\n${$writingExample}\n\nRequirement: The article should be as long as possible without repeating any words from the writing style reference above.`;
+	
+	        // Start the content generation process
+	        generateContent(initialContext);
+	}
 </script>
 
 <style>
