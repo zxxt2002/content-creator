@@ -40,7 +40,8 @@
 		eventSource.addEventListener('error', (e) => {
 			error = true
 			loading = false
-			alert('Something went wrong!')
+			console.error('EventSource error:', e);
+    			alert('Something went wrong! Check the console for more details.');
 		});
 
 	        eventSource.addEventListener('message', (e) => {
