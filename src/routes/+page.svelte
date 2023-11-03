@@ -25,6 +25,12 @@
 	        writingExample = 'Your initial writing example value';
 	});
 
+	const shouldContinueGenerating = (content) => {
+	    // Define the logic to determine if content generation should continue
+	    // For example, you might check if the content has reached a certain length
+	    return content.length < 1000; // Continue if content is less than 1000 characters
+	};
+
 	const generateContent = async (currentContext) => {
 		loading = true;
 		error = false;
