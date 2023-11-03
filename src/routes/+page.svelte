@@ -44,13 +44,14 @@
 		if (iteration === 0) {
 	            answer = ''; // Reset answer only when starting the first iteration
 	        }
+		const maxTokensPerRequest = 1000; // Adjust this value as needed
 		const eventSource = new SSE('/api/explain', {
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			payload: JSON.stringify({ 
 				context: currentContext,
-				max_tokens: 25000
+				max_tokens: maxTokensPerRequest
 			})
 		});
 
