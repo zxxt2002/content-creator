@@ -30,6 +30,11 @@
 	    // For example, you might check if the content has reached a certain length
 	    return content.length < 1000; // Continue if content is less than 1000 characters
 	};
+	const updateContextWithNewContent = (currentContext, newText) => {
+	    // Define the logic for updating the context with the new content
+	    // For example, you might append the new text to the existing context
+	    return `${currentContext}\n${newText}`;
+	};
 
 	const generateContent = async (currentContext) => {
 		loading = true;
