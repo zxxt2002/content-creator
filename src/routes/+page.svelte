@@ -45,7 +45,7 @@
 		//         const startIndex = currentContext.length - (maxContextLength - maxTokensPerRequest);
 		//         currentContext = currentContext.substring(startIndex);
 		//     }
-		const prompt = `Article Topic: ${requirement}\n\nWriting Style Reference:\n${writingExample}\n\nNote: Do not repeat the previous generated content:\n\nGenerate new content:`;
+		const prompt = `Write an Article with Topic: ${requirement}\n\nWriting Style Reference:\n${writingExample}\n\nNote: Do not repeat the previous generated content, each paragraph should be as long as needed;\n\nGenerate new content:`;
 		const eventSource = new SSE('/api/explain', {
 			headers: {
 				'Content-Type': 'application/json'
