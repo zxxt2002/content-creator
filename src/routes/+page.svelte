@@ -73,7 +73,7 @@
 	            try {
 	                if (e.data === '[DONE]') {
 	                    iteration++;
-	                    if (iteration < 8) {
+	                    if (iteration < 12) {
 	                        // Continue with next iteration
 	                        const newContext = updateContextWithNewContent(currentContext, answer);
 	                        generateContent(newContext, iteration);
