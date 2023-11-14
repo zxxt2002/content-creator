@@ -23,15 +23,10 @@
 	    
 	onMount(() => {
 		// Initialize or fetch the values for requirement and writingExample here
-	        requirement = 'Your initial requirement value';
-	        writingExample = 'Your initial writing example value';
+	        requirement = '';
+	        writingExample = '';
 	});
 
-	const shouldContinueGenerating = (content) => {
-	    // Define the logic to determine if content generation should continue
-	    // For example, you might check if the content has reached a certain length
-	    return content.length < 1000; // Continue if content is less than 1000 characters
-	};
 	const updateContextWithNewContent = (currentContext, newText) => {
 	    // Define the logic for updating the context with the new content
 	    // For example, you might append the new text to the existing context
@@ -44,19 +39,19 @@
 		if (iteration === 0) {
 	            answer = ''; // Reset answer only when starting the first iteration
 	        }
-		const maxTokensPerRequest = 5000; // Adjust this value as needed
-		const maxContextLength = 10000;
-		if (currentContext.length > maxContextLength - maxTokensPerRequest) {
-		        const startIndex = currentContext.length - (maxContextLength - maxTokensPerRequest);
-		        currentContext = currentContext.substring(startIndex);
-		    }
+		//const maxTokensPerRequest = 5000; // Adjust this value as needed
+		//const maxContextLength = 10000;
+		// if (currentContext.length > maxContextLength - maxTokensPerRequest) {
+		//         const startIndex = currentContext.length - (maxContextLength - maxTokensPerRequest);
+		//         currentContext = currentContext.substring(startIndex);
+		//     }
+		const prompt = `Article Topic: ${requirement}\n\nWriting Style Reference:\n${writingExample}\n\nNote: Do not repeat the previous generated content:\n\nGenerate new content:`;
 		const eventSource = new SSE('/api/explain', {
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			payload: JSON.stringify({ 
-				context: currentContext,
-				max_tokens: maxTokensPerRequest
+				context: prompt,
 			})
 		});
 
