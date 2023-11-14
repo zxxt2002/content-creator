@@ -44,8 +44,8 @@
 		if (iteration === 0) {
 	            answer = ''; // Reset answer only when starting the first iteration
 	        }
-		const maxTokensPerRequest = 1000; // Adjust this value as needed
-		const maxContextLength = 4000;
+		const maxTokensPerRequest = 5000; // Adjust this value as needed
+		const maxContextLength = 10000;
 		if (currentContext.length > maxContextLength - maxTokensPerRequest) {
 		        const startIndex = currentContext.length - (maxContextLength - maxTokensPerRequest);
 		        currentContext = currentContext.substring(startIndex);
@@ -148,6 +148,23 @@
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
     }
+    .generated-content {
+        margin-top: 20px; /* Space from the form */
+    }
+
+    .generated-content textarea {
+        width: 100%; /* Full-width textarea */
+        height: 150px; /* Adjust the height as needed */
+    }
+    .generated-content {
+        margin-top: 20px; /* Space from the form */
+    }
+
+    .generated-content textarea {
+        width: 100%; /* Full-width textarea */
+        height: 150px; /* Adjust the height as needed */
+    }
+
 </style>
 
 <header>
@@ -179,6 +196,14 @@
 		<textarea id="email-textarea" name="writingExample" rows="5" bind:value={writingExample}></textarea>
 		<button>Write Article</button>
 	</form>
+	    
+	<div class="generated-content">
+        <h2>Generated Article:</h2>
+        <textarea readonly bind:value={answer}></textarea>
+        {#if answer}
+          <button on:click|preventDefault={() => copyToClipboard()}>Copy to Clipboard</button>
+        {/if}
+    	</div>
 
 	<div class="pt-4">
 		<h2>Generated Article:</h2>
