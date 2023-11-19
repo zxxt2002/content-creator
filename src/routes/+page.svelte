@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { CreateCompletionResponse } from 'openai'
+    	import { onMount } from 'svelte';
 	import { SSE } from 'sse.js'
 	import Login from './login.svelte'; // Ensure the correct path
 	import History from './history.svelte';
 	import ContentView from './contentView.svelte';
 
-	let context = ''
+	//let context = ''
 	let requirement = ''
 	let writingExample = ''
 
@@ -13,56 +14,85 @@
 	let error = false
 	let answer = ''
 	let copyDisabled = true;
+	let tokenUsage = 0;
+	let requestCount = 0;
 
 	let selectedContent = null;
     	let showLogin = false; // Add this to track if the login modal should be shown
 	let showHistory = false;
+	    
+	onMount(() => {
+		// Initialize or fetch the values for requirement and writingExample here
+	        requirement = '';
+	        writingExample = '';
+	});
 
-	const handleSubmit = async () => {
-		loading = true
-		error = false
-		answer = ''
-		context = ''
-		context = "Write longest anticle about: " + requirement + 
-		"Write it in my writing style and tone but do not reiterate words from the text below because it is completely unrelated, only use it as a reference: "  
-		+ writingExample + "requirement of length of this article: longer the better";
+	const updateContextWithNewContent = (currentContext, newText) => {
+	    // Define the logic for updating the context with the new content
+	    // For example, you might append the new text to the existing context
+	    return `${currentContext}\n${newText}`;
+	};
 
+	const generateContent = async (currentContext, iteration = 0) => {
+		loading = true;
+		error = false;
+		if (iteration === 0) {
+	            answer = ''; // Reset answer only when starting the first iteration
+	        }
+		//const maxTokensPerRequest = 5000; // Adjust this value as needed
+		//const maxContextLength = 10000;
+		// if (currentContext.length > maxContextLength - maxTokensPerRequest) {
+		//         const startIndex = currentContext.length - (maxContextLength - maxTokensPerRequest);
+		//         currentContext = currentContext.substring(startIndex);
+		//     }
+		const prompt = `Write article with Topic: ${requirement}\n\nWriting Style Reference:\n${writingExample}\n\nNote: Do not repeat the previous generated content;\n\nGenerate new content:`;
 		const eventSource = new SSE('/api/explain', {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			payload: JSON.stringify({ context })
-		})
+			payload: JSON.stringify({ 
+				context: prompt,
+			})
+		});
 
-		context = ''
 
 		eventSource.addEventListener('error', (e) => {
 			error = true
 			loading = false
-			alert('Something went wrong!')
-		})
+			console.error('EventSource error:', e);
+    			alert('Something went wrong! Check the console for more details.');
+			eventSource.close();
+		});
 
-		eventSource.addEventListener('message', (e) => {
-			try {
-				loading = false
+	        eventSource.addEventListener('message', (e) => {
+	            try {
+	                if (e.data === '[DONE]') {
+	                    iteration++;
+	                    if (iteration < 12) {
+	                        // Continue with next iteration
+	                        const newContext = updateContextWithNewContent(currentContext, answer);
+	                        generateContent(newContext, iteration);
+	                    } else {
+	                        // Final iteration completed
+	                        loading = false;
+	                        copyDisabled = false;
+	                    }
+	                    eventSource.close();
+	                    return;
+	                }
+	
+	                const completionResponse = JSON.parse(e.data);
+	                const [{ text, usage }] = completionResponse.choices;
+	                answer += text; // Append each new part to the existing answer.
+	            } catch (err) {
+	                error = true;
+	                loading = false;
+	                console.error('Error:', err.message);
+	                alert('Something went wrong!' + err.message);
+	                eventSource.close();
+	            }
+	        });
 
-				if (e.data === '[DONE]') {
-					copyDisabled = false;
-					return
-				}
-
-				const completionResponse: CreateCompletionResponse = JSON.parse(e.data)
-
-				const [{ text }] = completionResponse.choices
-
-				answer = (answer ?? '') + text
-			} catch (err) {
-				error = true
-				loading = false
-				console.error(err)
-				alert('Something went wrong!')
-			}
-		})
 
 		eventSource.stream()
 	}
@@ -75,6 +105,16 @@
 		document.body.removeChild(elem)
 		alert('Copied to clipboard!')
  	}
+	    const handleSubmit = () => {
+	        loading = true;
+	        error = false;
+	
+	        // Define your initial context here
+	        const initialContext = `Article Topic: ${requirement}\n\nWriting Style Reference:\n${writingExample}\n\nRequirement: The article should be as long as possible without repeating any words from the writing style reference above.`;
+	
+	        // Start the content generation process
+	        generateContent(initialContext, 0);
+	}
 </script>
 
 <style>
@@ -103,6 +143,23 @@
     .main-content {
         margin-top: 60px; /* Adjust as per your header's height */
     }
+    .generated-content {
+        margin-top: 20px; /* Space from the form */
+    }
+
+    .generated-content textarea {
+        width: 100%; /* Full-width textarea */
+        height: 150px; /* Adjust the height as needed */
+    }
+    .generated-content {
+        margin-top: 20px; /* Space from the form */
+    }
+
+    .generated-content textarea {
+        width: 100%; /* Full-width textarea */
+        height: 150px; /* Adjust the height as needed */
+    }
+
 </style>
 
 <header>
@@ -134,6 +191,14 @@
 		<textarea id="email-textarea" name="writingExample" rows="5" bind:value={writingExample}></textarea>
 		<button>Write Article</button>
 	</form>
+	    
+	<div class="generated-content">
+        <h2>Generated Article:</h2>
+        <textarea readonly bind:value={answer}></textarea>
+        {#if answer}
+          <button on:click|preventDefault={() => copyToClipboard()}>Copy to Clipboard</button>
+        {/if}
+    	</div>
 
 	<div class="pt-4">
 		<h2>Generated Article:</h2>
